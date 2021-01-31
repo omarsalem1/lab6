@@ -242,9 +242,40 @@ namespace lab6
          //   g.DrawLine(,LC_pt1,LC_pt2);
         }
 
-        private void Form1_MouseHover(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }
+
+        private void Form1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            switch ((int)e.KeyChar)
+            {
+                case 18:
+                    l_color = Color.Red;
+                    //MessageBox.Show("red");
+                    break;
+                case 2:
+                    l_color = Color.Blue;
+                    break;
+                case 7:
+                    l_color = Color.Green;
+                    break;
+            }
+            l_pen.Color = l_color;
+            this.Invalidate();
+        }
+
+        private void Form1_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left && e.X>=l_stpt.X && e.Y <=l_stpt.Y && e.X<=l_endpth.X && e.Y>=l_endptv.Y)
+            {
+                int year = (e.X - l_stpt.X) / 60 + fyear;
+                float rev = (l_stpt.Y-e.Y)/2;
+                MessageBox.Show($" year : {year} revunue : {(int)rev} ");
+                this.Invalidate();
+            }
+        }
+            
     }
 }
