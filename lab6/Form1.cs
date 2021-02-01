@@ -38,6 +38,7 @@ namespace lab6
         Brush C_brush;
         // chart lines variables
         Pen l_pen;
+       // Brush l_brush;
         Color l_color;
         Point l_stpt;
         Point l_endpth;
@@ -54,6 +55,7 @@ namespace lab6
         int chart_length;
         // bar chart variables
         Brush BC_brush;
+        HatchStyle BC_style;
         float BC_width;
         float BC_length;
         Color BC_color;
@@ -103,6 +105,7 @@ namespace lab6
             C_Format.LineAlignment = StringAlignment.Center;
             // 
             l_color = Color.Ivory;
+           // l_brush = new SolidBrush(l_color);
             l_pen = new Pen(l_color, 3.5f);
             l_stpt = new Point(40, 650);
             l_pen.EndCap = System.Drawing.Drawing2D.LineCap.ArrowAnchor;
@@ -117,13 +120,26 @@ namespace lab6
 
             //
             BC_color = Color.DarkRed;
-            BC_brush = new HatchBrush(HatchStyle.BackwardDiagonal, BC_color);
+            BC_style = HatchStyle.BackwardDiagonal;
+            BC_brush = new HatchBrush(BC_style, BC_color);
+            
             BC_width = 20;
             //
             LC_color = Color.DeepSkyBlue;
             LC_pen = new Pen(Color.Blue,3.5f);
-           
-            
+            //
+            this.toolStripMenuItem1.Text = BC_color.ToString();
+            this.toolStripMenuItem1.Checked = checked(true);
+            this.toolStripMenuItem2.Text=BC_style.ToString();
+            this.toolStripMenuItem2.Checked= checked(true);
+
+            //فى مشكله فى الالوان 
+            //انا عاوز الون الخط اللى مرسوم كمان فوق العمدان
+            //انا مش فاهم ايه الاختلاف بين left -right
+            //انا عاوز كمان ان يكون فى علامه جوي المنيوا تعرفني ايه الاستايل اللى انا عليه دلوقتي واللون اللى انا عليه
+            //لحد دلوقتي تمام ذى الفل ذود دول بس
+
+
 
 
 
@@ -224,6 +240,7 @@ namespace lab6
             BC_length = length;
             BC_y = st_y;
             g.FillRectangle(BC_brush, BC_x, BC_y, BC_width, BC_length);
+            
 
         }
         public void drawlinechart(float x1 ,float y1 , float x2 , float y2)
@@ -274,8 +291,257 @@ namespace lab6
                 float rev = (l_stpt.Y-e.Y)/2;
                 MessageBox.Show($" year : {year} revunue : {(int)rev} ");
                 this.Invalidate();
+            }else if (e.Button == MouseButtons.Right && e.X >= l_stpt.X && e.Y <= l_stpt.Y && e.X <= l_endpth.X && e.Y >= l_endptv.Y)
+            {
+               
+                this.ContextMenuStrip = this.contextMenuStrip1;
+
+            }else if(e.Button == MouseButtons.Right)
+            {
+                this.ContextMenuStrip = this.contextMenuStrip2;
+
             }
+                    }
+
+        private void rEDToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (ToolStripMenuItem i in colorToolStripMenuItem.DropDownItems)
+            {
+                i.Checked = false;
+            }
+            foreach (ToolStripMenuItem i in colorToolStripMenuItem3.DropDownItems)
+            {
+                i.Checked = false;
+            }
+            LC_color = Color.Red;
+            LC_pen.Color = LC_color;
+            l_color = Color.Red;
+            l_pen.Color = l_color;
+            rEDToolStripMenuItem.Checked = checked(true) ;
+            redToolStripMenuItem3.Checked = checked(true);
+            this.Invalidate();
+
         }
-            
+
+        private void gREENToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (ToolStripMenuItem i in colorToolStripMenuItem.DropDownItems)
+            {
+                i.Checked = false;
+            }
+            foreach (ToolStripMenuItem i in colorToolStripMenuItem3.DropDownItems)
+            {
+                i.Checked = false;
+            }
+            LC_color = Color.Green;
+            LC_pen.Color = LC_color;
+            l_color = Color.Green;
+            l_pen.Color = l_color;
+           gREENToolStripMenuItem .Checked = checked(true);
+            greenToolStripMenuItem3.Checked = checked(true);
+
+            this.Invalidate();
+        }
+
+        private void bLUEToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (ToolStripMenuItem i in colorToolStripMenuItem.DropDownItems)
+            {
+                i.Checked = false;
+            }
+            foreach (ToolStripMenuItem i in colorToolStripMenuItem3.DropDownItems)
+            {
+                i.Checked = false;
+            }
+            LC_color = Color.Blue;
+            LC_pen.Color = LC_color;
+            l_color = Color.Blue;
+            l_pen.Color = l_color;
+            bLUEToolStripMenuItem.Checked = checked(true);
+            blueToolStripMenuItem3.Checked = checked(true);
+            this.Invalidate();
+        }
+
+        private void solidToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (ToolStripMenuItem i in styleToolStripMenuItem.DropDownItems)
+            {
+                i.Checked = false;
+            }
+            foreach (ToolStripMenuItem i in styleToolStripMenuItem3.DropDownItems)
+            {
+                i.Checked = false;
+            }
+            l_pen.DashStyle = DashStyle.Solid;
+            LC_pen.DashStyle = DashStyle.Dash;
+            solidToolStripMenuItem.Checked = checked(true);
+            solidToolStripMenuItem1.Checked = checked(true);
+
+            this.Invalidate();
+           
+        }
+
+        private void dashedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (ToolStripMenuItem i in styleToolStripMenuItem.DropDownItems)
+            {
+                i.Checked = false;
+            }
+            foreach (ToolStripMenuItem i in styleToolStripMenuItem3.DropDownItems)
+            {
+                i.Checked = false;
+            }
+            l_pen.DashStyle = DashStyle.Dash;
+            LC_pen.DashStyle = DashStyle.Dash;
+            dashedToolStripMenuItem.Checked = checked(true);
+            dashedToolStripMenuItem1.Checked = checked(true);
+            this.Invalidate();
+
+        }
+
+        private void dottedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (ToolStripMenuItem i in styleToolStripMenuItem.DropDownItems)
+            {
+                i.Checked = false;
+            }
+            foreach (ToolStripMenuItem i in styleToolStripMenuItem3.DropDownItems)
+            {
+                i.Checked = false;
+            }
+            l_pen.DashStyle = DashStyle.Dot;
+            LC_pen.DashStyle = DashStyle.Dot;
+            dottedToolStripMenuItem.Checked = checked(true);
+            dottedToolStripMenuItem1.Checked = checked(true);
+            this.Invalidate();
+
+        }
+
+        private void redToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            foreach (ToolStripMenuItem i in colorToolStripMenuItem1.DropDownItems)
+            {
+                i.Checked = false;
+            }
+            foreach (ToolStripMenuItem i in colorToolStripMenuItem2.DropDownItems)
+            {
+                i.Checked = false;
+            }
+            BC_color = Color.Red;
+            BC_brush = new HatchBrush(BC_style, BC_color);
+            redToolStripMenuItem1.Checked = checked(true);
+            redToolStripMenuItem2.Checked = checked(true);
+            this.Invalidate();
+        }
+
+        private void greenToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            foreach (ToolStripMenuItem i in colorToolStripMenuItem1.DropDownItems)
+            {
+                i.Checked = false;
+            }
+            foreach (ToolStripMenuItem i in colorToolStripMenuItem2.DropDownItems)
+            {
+                i.Checked = false;
+            }
+
+            BC_color = Color.Green;
+            BC_brush = new HatchBrush(BC_style, BC_color);
+            greenToolStripMenuItem1.Checked = checked(true);
+            greenToolStripMenuItem2.Checked = checked(true);
+            this.Invalidate();
+        }
+
+        private void blueToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            foreach (ToolStripMenuItem i in colorToolStripMenuItem1.DropDownItems)
+            {
+                i.Checked = false;
+            }
+            foreach (ToolStripMenuItem i in colorToolStripMenuItem2.DropDownItems)
+            {
+                i.Checked = false;
+            }
+            BC_color = Color.Blue;
+            BC_brush = new HatchBrush(BC_style, BC_color);
+            blueToolStripMenuItem1.Checked = checked(true);
+            blueToolStripMenuItem2.Checked = checked(true);
+            this.Invalidate();
+        }
+
+        private void rightToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (ToolStripMenuItem i in styleToolStripMenuItem1.DropDownItems)
+            {
+                i.Checked = false;
+            }
+            foreach (ToolStripMenuItem i in styleToolStripMenuItem2.DropDownItems)
+            {
+                i.Checked = false;
+            }
+            BC_style = HatchStyle.BackwardDiagonal;
+            BC_brush = new HatchBrush(BC_style, BC_color);
+            rightToolStripMenuItem.Checked = checked(true);
+            rightToolStripMenuItem1.Checked = checked(true);
+            this.Invalidate();
+
+        }
+
+        private void leftToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (ToolStripMenuItem i in styleToolStripMenuItem1.DropDownItems)
+            {
+                i.Checked = false;
+            }
+            foreach (ToolStripMenuItem i in styleToolStripMenuItem2.DropDownItems)
+            {
+                i.Checked = false;
+            }
+            BC_style = HatchStyle.ForwardDiagonal;
+            BC_brush = new HatchBrush(BC_style, BC_color);
+            leftToolStripMenuItem.Checked = checked(true);
+            leftToolStripMenuItem1.Checked = checked(true);
+            this.Invalidate();
+        }
+
+        private void crossToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BC_style = HatchStyle.Cross;
+            foreach(ToolStripMenuItem i in styleToolStripMenuItem1.DropDownItems )
+            {
+                i.Checked = false; 
+            }
+            foreach (ToolStripMenuItem i in styleToolStripMenuItem2.DropDownItems)
+            {
+                i.Checked = false;
+            }
+
+            crossToolStripMenuItem.Checked = checked(true);
+            crossToolStripMenuItem1.Checked = checked(true);
+            BC_brush = new HatchBrush(BC_style, BC_color);
+            this.Invalidate();
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void rightToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            foreach (ToolStripMenuItem i in styleToolStripMenuItem1.DropDownItems)
+            {
+                i.Checked = false;
+            }
+            foreach (ToolStripMenuItem i in styleToolStripMenuItem2.DropDownItems)
+            {
+                i.Checked = false;
+            }
+            BC_style = HatchStyle.BackwardDiagonal;
+            BC_brush = new HatchBrush(BC_style, BC_color);
+            rightToolStripMenuItem.Checked = checked(true);
+            rightToolStripMenuItem1.Checked = checked(true);
+            this.Invalidate();
+        }
     }
 }
