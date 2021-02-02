@@ -19,6 +19,8 @@ namespace lab6
         // title variables
         string T_text;
         Font T_font;
+        string T_fontstring;
+        int T_fontsize;
         Color T_color;
         Brush T_brush;
        // Point T_stpt;
@@ -81,11 +83,14 @@ namespace lab6
             InitializeComponent();
             fyear = 1988;
             arr_values= new int[] { 150, 170, 180, 175, 200, 250, 210, 240, 280, 140 };
-            
+
             //
-            T_font = new Font("Times New Roman",18 ,FontStyle.Underline);
+            T_fontstring = "Times New Roman";
+            T_fontsize = 16;
+            T_text = "ABC Company";
+
             T_color = Color.Black;
-            T_brush = new SolidBrush(T_color);
+            
             T_format = new StringFormat();
             T_format.Alignment = StringAlignment.Center;
             //
@@ -133,12 +138,7 @@ namespace lab6
             this.toolStripMenuItem2.Text=BC_style.ToString();
             this.toolStripMenuItem2.Checked= checked(true);
 
-            //فى مشكله فى الالوان 
-            //انا عاوز الون الخط اللى مرسوم كمان فوق العمدان
-            //انا مش فاهم ايه الاختلاف بين left -right
-            //انا عاوز كمان ان يكون فى علامه جوي المنيوا تعرفني ايه الاستايل اللى انا عليه دلوقتي واللون اللى انا عليه
-            //لحد دلوقتي تمام ذى الفل ذود دول بس
-
+            
 
 
 
@@ -152,8 +152,8 @@ namespace lab6
         protected override void OnPaint(PaintEventArgs e)
         {
          this.WindowState = FormWindowState.Maximized;
-            drawtitle("ABC Company", 0);
-            drawtitle("Annual Revunue",30);
+         //   drawtitle("ABC Company", 30);
+            drawtitle();
             drawrect();
 
             drawtablecell("YEARS", rect_stptx, rect_stpty + ((rect_length / 11) * 0), rect_length / 11, rect_width / 2);
@@ -188,16 +188,21 @@ namespace lab6
             this.Invalidate();
           //  base.OnResize(e);
         }
-        public void drawtitle(string s,int yco)
+        public void drawtitle()
         {
-           // T_stpt = new Point(ClientSize.Width / 2, yco);
+            // T_stpt = new Point(ClientSize.Width / 2, yco);
+            T_brush = new SolidBrush(T_color);
 
-            T_text = s;
-            Graphics g = this.CreateGraphics();
-            Rectangle r1 = new Rectangle(0, yco, this.Width, 30);
-            g.DrawString(T_text, T_font, T_brush,r1, T_format);
             
-           // g.DrawString(T_text, T_font, T_brush, T_stpt);
+            string T_text1 = " ANNUAL REVUNUE";
+            T_font = new Font(T_fontstring, T_fontsize, FontStyle.Underline);
+            Graphics g = this.CreateGraphics();
+            Rectangle r1 = new Rectangle(0, 30, this.Width, 40);
+            g.DrawString(T_text, T_font, T_brush,r1, T_format);
+            Rectangle r2 = new Rectangle(0, 60, this.Width, 40);
+            g.DrawString(T_text1, T_font, T_brush, r2, T_format);
+
+            // g.DrawString(T_text, T_font, T_brush, T_stpt);
         }
         public void drawrect()
         {
@@ -285,22 +290,22 @@ namespace lab6
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left && e.X>=l_stpt.X && e.Y <=l_stpt.Y && e.X<=l_endpth.X && e.Y>=l_endptv.Y)
-            {
-                int year = (e.X - l_stpt.X) / 60 + fyear;
-                float rev = (l_stpt.Y-e.Y)/2;
-                MessageBox.Show($" year : {year} revunue : {(int)rev} ");
-                this.Invalidate();
-            }else if (e.Button == MouseButtons.Right && e.X >= l_stpt.X && e.Y <= l_stpt.Y && e.X <= l_endpth.X && e.Y >= l_endptv.Y)
-            {
+            //if (e.Button == MouseButtons.Left && e.X>=l_stpt.X && e.Y <=l_stpt.Y && e.X<=l_endpth.X && e.Y>=l_endptv.Y)
+            //{
+            //    int year = (e.X - l_stpt.X) / 60 + fyear;
+            //    float rev = (l_stpt.Y-e.Y)/2;
+            //    MessageBox.Show($" year : {year} revunue : {(int)rev} ");
+            //    this.Invalidate();
+            //}else if (e.Button == MouseButtons.Right && e.X >= l_stpt.X && e.Y <= l_stpt.Y && e.X <= l_endpth.X && e.Y >= l_endptv.Y)
+            //{
                
-                this.ContextMenuStrip = this.contextMenuStrip1;
+            //    this.ContextMenuStrip = this.contextMenuStrip1;
 
-            }else if(e.Button == MouseButtons.Right)
-            {
-                this.ContextMenuStrip = this.contextMenuStrip2;
+            //}else if(e.Button == MouseButtons.Right)
+            //{
+            //    this.ContextMenuStrip = this.contextMenuStrip2;
 
-            }
+            //}
                     }
 
         private void rEDToolStripMenuItem_Click(object sender, EventArgs e)
@@ -542,6 +547,51 @@ namespace lab6
             rightToolStripMenuItem.Checked = checked(true);
             rightToolStripMenuItem1.Checked = checked(true);
             this.Invalidate();
+        }
+
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left && e.X >= l_stpt.X && e.Y <= l_stpt.Y && e.X <= l_endpth.X && e.Y >= l_endptv.Y)
+            {
+                int year = (e.X - l_stpt.X) / 60 + fyear;
+                float rev = (l_stpt.Y - e.Y) / 2;
+                MessageBox.Show($" year : {year} revunue : {(int)rev} ");
+                this.Invalidate();
+            }
+            else if (e.Button == MouseButtons.Right && e.X >= l_stpt.X && e.Y <= l_stpt.Y && e.X <= l_endpth.X && e.Y >= l_endptv.Y)
+            {
+
+                this.ContextMenuStrip = this.contextMenuStrip1;
+
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                this.ContextMenuStrip = this.contextMenuStrip2;
+
+            }
+        }
+
+        private void companyNameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dialogbox obj = new dialogbox();
+            
+            DialogResult dlgbres;
+           obj.Ntext = T_text;
+            obj.fontchanger=T_fontstring;
+          obj.fontsizer=T_fontsize;
+
+
+
+            obj.Ncolor = T_color;
+            dlgbres = obj.ShowDialog();
+            if (dlgbres == DialogResult.OK) {
+                T_text = obj.Ntext;
+                T_color = obj.Ncolor;
+                T_fontstring = obj.fontchanger;
+                T_fontsize = obj.fontsizer;
+               
+                Invalidate();
+            }
         }
     }
 }

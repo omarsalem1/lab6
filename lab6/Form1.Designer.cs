@@ -71,6 +71,7 @@ namespace lab6
             this.solidToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.dashedToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.dottedToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.companyNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
@@ -80,7 +81,8 @@ namespace lab6
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lineToolStripMenuItem,
-            this.rectangleToolStripMenuItem});
+            this.rectangleToolStripMenuItem,
+            this.companyNameToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 24);
@@ -403,6 +405,13 @@ namespace lab6
             this.dottedToolStripMenuItem1.Text = "dotted";
             this.dottedToolStripMenuItem1.Click += new System.EventHandler(this.dottedToolStripMenuItem_Click);
             // 
+            // companyNameToolStripMenuItem
+            // 
+            this.companyNameToolStripMenuItem.Name = "companyNameToolStripMenuItem";
+            this.companyNameToolStripMenuItem.Size = new System.Drawing.Size(116, 20);
+            this.companyNameToolStripMenuItem.Text = "Company name ...";
+            this.companyNameToolStripMenuItem.Click += new System.EventHandler(this.companyNameToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -468,6 +477,7 @@ namespace lab6
         private System.Windows.Forms.ToolStripMenuItem dottedToolStripMenuItem1;
         public System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem companyNameToolStripMenuItem;
     }
 }
 
